@@ -10,6 +10,7 @@ const copy = {
   en: {
     nav: ['Sessions', 'Activities', 'Programs', 'Resources', 'About'],
     book: 'Book a session',
+    heroBrand: 'House of Hoki',
     eyebrow: 'Well-being · personal growth · community',
     titleA: 'A place to arrive.',
     titleB: 'Space to become.',
@@ -70,7 +71,7 @@ const copy = {
   },
   de: {
     nav: ['Sitzungen', 'Aktivitäten', 'Programme', 'Ressourcen', 'Über uns'], book: 'Sitzung buchen',
-    eyebrow: 'Wohlbefinden · persönliches Wachstum · Gemeinschaft', titleA: 'Ein Ort zum Ankommen.', titleB: 'Raum zum Wachsen.',
+    heroBrand: 'House of Hoki', eyebrow: 'Wohlbefinden · persönliches Wachstum · Gemeinschaft', titleA: 'Ein Ort zum Ankommen.', titleB: 'Raum zum Wachsen.',
     intro: 'House of Hoki vereint persönliche Sitzungen, gemeinsame Aktivitäten und Community-Programme unter einem ruhigen Dach — online, bei Heidelberg und bald in Jerewan.',
     orient: 'Kostenlose 15-Min.-Orientierung', explore: 'Angebot entdecken', sectionKicker: 'Zwei Wege zum Anfang', sectionTitle: 'Persönlicher Raum. Gemeinsames Erleben.',
     sectionIntro: 'Wähle den Rahmen, der heute zu dir passt. Sarah prüft jede Anfrage persönlich, bevor etwas bestätigt wird.',
@@ -90,7 +91,7 @@ const copy = {
   },
   hy: {
     nav: ['Անհատական', 'Խմբային', 'Ծրագրեր', 'Նյութեր', 'Մեր մասին'], book: 'Ամրագրել հանդիպում',
-    eyebrow: 'Բարեկեցություն · անձնական աճ · համայնք', titleA: 'Վայր՝ կանգ առնելու։', titleB: 'Տարածք՝ դառնալու։',
+    heroBrand: 'House of Hoki', eyebrow: 'Բարեկեցություն · անձնական աճ · համայնք', titleA: 'Վայր՝ կանգ առնելու։', titleB: 'Տարածք՝ դառնալու։',
     intro: 'House of Hoki-ն միավորում է անհատական հանդիպումները, խմբային գործունեությունն ու համայնքային ծրագրերը՝ առցանց, Հայդելբերգի մոտ և շուտով Երևանում։',
     orient: 'Անվճար 15 րոպե ծանոթացում', explore: 'Բացահայտել առաջարկները', sectionKicker: 'Սկսելու երկու ճանապարհ', sectionTitle: 'Անձնական տարածք։ Ընդհանուր փորձառություն։',
     sectionIntro: 'Ընտրեք այն միջավայրը, որը հիմա ձեզ հարմար է։ Սառան անձամբ դիտարկում է յուրաքանչյուր հարցում։', privateTitle: 'Անհատական հանդիպումներ', privateText: 'Կենտրոնացված անհատական տարածք՝ ձեր նպատակներին ու տեմպին համապատասխան։', groupTitle: 'Խմբային գործունեություն', groupText: 'Ուղղորդված շրջաններ և աշխատարաններ՝ մտորելու, կապվելու և աճելու համար։',
@@ -175,13 +176,21 @@ function Header({ lang, setLang }) {
 
 function Art({ variant='arch' }) { return <div className={`art ${variant}`} aria-hidden="true"><span/><i/><b/></div> }
 
-function HeroPoster({ copy: t }) {
+function HeroPoster({ copy: t, lang }) {
   return <section className="hero hero-poster" aria-labelledby="home-title">
-    <img className="hero-poster-image" src={`${import.meta.env.BASE_URL}og.png`} alt="" aria-hidden="true"/>
-    <div className="hero-poster-questions" aria-hidden="true">{t.reflectionQuestions.slice(0,3).map((question,index)=><span className={`floating-question poster-question-${index+1}`} key={question}>{question}</span>)}</div>
+    <div className="hero-poster-visual">
+      <picture className="hero-poster-picture">
+        <source media="(max-width: 600px)" srcSet={`${import.meta.env.BASE_URL}hero-mobile.png`}/>
+        <img className="hero-poster-image" src={`${import.meta.env.BASE_URL}hero-background.png`} alt="" aria-hidden="true"/>
+      </picture>
+      <div className="hero-poster-questions" aria-hidden="true">{t.reflectionQuestions.slice(0,3).map((question,index)=><span className={`floating-question poster-question-${index+1}`} key={question}>{question}</span>)}</div>
+    </div>
+    <div className={`hero-poster-heading lang-${lang}`}>
+      <p className="hero-wordmark">{t.heroBrand}</p>
+      <h1 id="home-title"><span>{t.titleA}</span><em>{t.titleB}</em></h1>
+    </div>
     <div className="hero-poster-content">
       <p className="eyebrow">{t.eyebrow}</p>
-      <h1 id="home-title"><span>{t.titleA}</span><em>{t.titleB}</em></h1>
       <p className="hero-poster-intro">{t.intro}</p>
       <div className="button-row"><Link className="button" to="/booking">{t.book}<span>→</span></Link><Link className="text-link" to="/sessions">{t.explore}<span>→</span></Link></div>
       <div className="trust-row">{t.trust.map(item=><span key={item}>{item}</span>)}</div>
@@ -331,7 +340,7 @@ function HomePage({ lang }) {
   const [openFaq,setOpenFaq] = useState(0)
   const t = copy[lang]
   return <main>
-      <HeroPoster copy={t}/>
+      <HeroPoster copy={t} lang={lang}/>
 
       <section className="reflection-section" aria-labelledby="reflection-title"><div className="reflection-heading"><p className="eyebrow">{t.reflectionKicker}</p><h2 id="reflection-title">{t.reflectionTitle}</h2><p>{t.reflectionIntro}</p></div><div className="question-cloud">{t.reflectionQuestions.map((question,index)=><Link className={`question-card card-${index+1}`} to="/booking" key={question}><span>{String(index+1).padStart(2,'0')}</span><strong>{question}</strong><i aria-hidden="true">↗</i></Link>)}</div></section>
 
