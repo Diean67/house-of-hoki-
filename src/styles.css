@@ -277,7 +277,7 @@ footer>div:first-child p{font:400 20px Georgia,serif;margin-top:30px}
 .listing-grid.three{grid-template-columns:1fr}
 .crisis-notice{grid-template-columns:1fr}
 }
-@media(max-width:600px){.header{padding:0 18px;height:74px}
+@media(max-width:700px),(max-height:600px) and (max-width:1000px){.header{padding:0 18px;height:74px}
 .logo small{display:none}
 .header .button{display:none}
 .header{height:auto;min-height:calc(64px + env(safe-area-inset-top));padding:max(0px,env(safe-area-inset-top)) max(18px,env(safe-area-inset-right)) 0 max(18px,env(safe-area-inset-left))}
@@ -285,6 +285,7 @@ footer>div:first-child p{font:400 20px Georgia,serif;margin-top:30px}
 .hero-poster-visual{position:relative;inset:auto;width:100%;height:clamp(280px,82vw,360px);flex:0 0 auto;overflow:hidden;background:var(--ice)}
 .hero-poster-visual:after{background:linear-gradient(180deg,rgba(35,18,21,.02),rgba(35,18,21,.12))}
 .hero-poster-image{object-position:center 43%}
+.hero-poster-questions{display:none}
 .hero-poster-heading,.hero-poster-heading.lang-de,.hero-poster-heading.lang-hy{position:relative;left:auto;top:auto;width:100%;padding:34px 22px 0;background:var(--ice-soft)}
 .hero-wordmark{margin-bottom:16px;font-size:10px;letter-spacing:.3em}
 .hero .hero-poster-heading h1,.hero-poster-heading.lang-de h1,.hero-poster-heading.lang-hy h1{font:400 clamp(38px,11.5vw,48px)/.95 Georgia,"Times New Roman",serif;letter-spacing:-.04em;overflow-wrap:normal}

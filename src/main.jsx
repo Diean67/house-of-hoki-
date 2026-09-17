@@ -180,7 +180,7 @@ function HeroPoster({ copy: t, lang }) {
   return <section className="hero hero-poster" aria-labelledby="home-title">
     <div className="hero-poster-visual">
       <picture className="hero-poster-picture">
-        <source media="(max-width: 600px)" srcSet={`${import.meta.env.BASE_URL}hero-mobile.png`}/>
+        <source media="(max-width: 700px), (max-height: 600px) and (max-width: 1000px)" srcSet={`${import.meta.env.BASE_URL}hero-mobile.png`}/>
         <img className="hero-poster-image" src={`${import.meta.env.BASE_URL}hero-background.png`} alt="" aria-hidden="true"/>
       </picture>
       <div className="hero-poster-questions" aria-hidden="true">{t.reflectionQuestions.slice(0,3).map((question,index)=><span className={`floating-question poster-question-${index+1}`} key={question}>{question}</span>)}</div>
