@@ -20,9 +20,11 @@ npm run build
 - Responsive English, German, and Armenian interface
 - Persistent language preference
 - House of Hoki, Hoki for Youth, and Common Club brand architecture
-- Private and group service presentation
-- Anonymous six-step estimator with a needs summary, AI-assisted planning prototype, and payment preference
-- Structured ten-question intake with coded English, German, and Armenian answer scales
+- Separate private, couple, and monthly group service presentation
+- Service-specific English, German, and Armenian booking questionnaires
+- Preferred and backup time selection prepared for a live calendar availability endpoint
+- Pricing intentionally hidden until approved variables and the future server-side AI guidance are configured
+- Sarah-approved booking flow prepared for a Cloudflare-to-n8n integration
 - Pilot and coming-soon program presentation
 - Locations, FAQ, resources pathway, and conversion sections
 - Keyboard-friendly semantic controls and reduced-motion support
@@ -32,25 +34,23 @@ npm run build
 
 ## Deliberately deferred
 
-The backend, Clerk authentication, email delivery, booking persistence, Google Calendar, n8n, live exchange rates, admin dashboard, and community features require production accounts and policy decisions. The interface is structured so these can be introduced incrementally rather than simulated insecurely in the browser.
+The backend, email delivery, booking persistence, Google Calendar, n8n, payment checkout, admin dashboard, and community features require production accounts and policy decisions. The interface is structured so these can be introduced incrementally rather than simulated insecurely in the browser.
 
 ### AI and payment production boundary
 
-- The current estimator simulates the AI-assisted step locally and sends no personal text to an external model.
-- Production should use a server-side `/api/session-estimate` endpoint with explicit consent, input minimization/redaction, a structured JSON response, rate limiting, and audit-safe logs that exclude questionnaire text. MCP can connect approved internal pricing/service tools, but it is not a substitute for the protected backend boundary.
+- No language model currently runs in the browser or backend.
+- Production should use a protected server-side guidance endpoint with coded inputs, strict structured output, approved pricing variables, rate limiting, and audit-safe logs that exclude questionnaire answers.
 - Create payment orders only after Sarah confirms the duration and final price. Use PayPal Checkout for PayPal and a PCI-compliant hosted card checkout such as Stripe Checkout for Visa; never collect or store raw card numbers in this React application.
 
-### Client Context Model report contract
+The complete AI pricing contract and unset variables are documented in [`AI_PRICING_README.md`](AI_PRICING_README.md). The Cloudflare, n8n, Sarah-approval, and calendar sequence is documented in [`BOOKING_AUTOMATION_README.md`](BOOKING_AUTOMATION_README.md).
 
-The prototype defines the fixed `hoki-client-context-v1` professional report schema in `src/main.jsx`. The production LLM must return the following sections in this order: primary focus, current intensity, daily-life impact, time course, goal clarity, current capacity, preferred support style, preferred pace, setting preference, previous support experience, customer description verbatim, planning recommendation, and safety scope.
+### Booking data boundary
 
-The optional customer description must be copied exactly into `customer_description_verbatim` with `transform: none`; it must never be rewritten, interpreted as a diagnosis, or shown as an LLM-generated quotation. The complete report is professional-only. Customers receive only booking guidance: suggested format, duration, price range, and a notice that Sarah must confirm it.
-
-Before connecting an LLM, add explicit consent, a documented GDPR lawful basis and Article 9 condition where applicable, access controls, retention/deletion rules, encryption, a DPIA assessment, and a server-side structured-output validator. Do not place provider credentials or model calls in the React client.
+The browser questionnaire collects only coded practical preferences and the minimum contact details needed for a reply. It does not price customers from distress, request a diagnosis, or send free-text health history to an LLM. Before activating production submission, add consent records, documented legal bases, access controls, retention and deletion rules, encryption, Turnstile validation, and server-side schema validation. Do not place n8n, calendar, payment, or model credentials in the React client.
 
 ## Content status
 
-Service names, prices, contact information, legal language, professional credentials, logos, and testimonials remain placeholders until confirmed. Do not deploy the placeholder claims or prices as a final commercial offer without review.
+Private, couple, and monthly group services are confirmed. Group date and location, all prices, the formal legal entity/address, Sarah's professional credentials, and production-provider details remain incomplete. The approved concept-C logo is implemented as a responsive CSS mark. Legal copy is a transparent launch draft and requires professional review before commercial launch.
 
 ## Routes and deployment
 
